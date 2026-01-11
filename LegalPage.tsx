@@ -1,0 +1,459 @@
+import { motion } from 'motion/react';
+import { FileText, Shield, AlertCircle } from 'lucide-react';
+import { useState } from 'react';
+import { MarketingFooter } from './MarketingFooter';
+
+interface LegalPageProps {
+  onNavigate?: (page: 'home' | 'features' | 'resources' | 'support' | 'benefits' | 'legal' | 'about') => void;
+}
+
+export function LegalPage({ onNavigate }: LegalPageProps) {
+  const [activeSection, setActiveSection] = useState<'disclaimer' | 'privacy' | 'terms'>('disclaimer');
+
+  const sections = [
+    {
+      id: 'disclaimer' as const,
+      title: 'Financial Disclaimer',
+      icon: AlertCircle,
+      color: '#ffa47d',
+    },
+    {
+      id: 'privacy' as const,
+      title: 'Privacy Policy',
+      icon: Shield,
+      color: '#5e6c5b',
+    },
+    {
+      id: 'terms' as const,
+      title: 'Terms of Service',
+      icon: FileText,
+      color: '#686867',
+    },
+  ];
+
+  return (
+    <div className="min-h-[calc(100vh-73px)] w-full bg-[#E9F0F1] py-12">
+      <div className="max-w-7xl mx-auto px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h1
+            className="text-[#162a2c] text-[56px] mb-4"
+            style={{
+              fontFamily: "'Helvetica World', 'Helvetica', sans-serif",
+              fontWeight: 700,
+            }}
+          >
+            Legal Information
+          </h1>
+          <p
+            className="text-[#686867] text-[18px]"
+            style={{
+              fontFamily: "'Helvetica World', 'Helvetica', sans-serif",
+              letterSpacing: '0.02em',
+            }}
+          >
+            Important legal documents and policies
+          </p>
+        </motion.div>
+
+        {/* Section Selection */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          {sections.map((section, index) => (
+            <motion.button
+              key={section.id}
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              onClick={() => setActiveSection(section.id)}
+              className={`p-6 rounded-lg border-2 transition-all ${
+                activeSection === section.id
+                  ? 'bg-white border-[#686867]/60 shadow-lg'
+                  : 'bg-white/50 border-[#686867]/20 hover:border-[#686867]/40'
+              }`}
+            >
+              <div
+                className="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center"
+                style={{ backgroundColor: section.color }}
+              >
+                <section.icon className="w-6 h-6 text-white" />
+              </div>
+              <h3
+                className="text-[#162a2c] text-[20px]"
+                style={{
+                  fontFamily: "'Helvetica World', 'Helvetica', sans-serif",
+                  fontWeight: 600,
+                  letterSpacing: '0.02em',
+                }}
+              >
+                {section.title}
+              </h3>
+            </motion.button>
+          ))}
+        </div>
+
+        {/* Content Area */}
+        <motion.div
+          key={activeSection}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="bg-white rounded-lg border-2 border-[#686867]/20 p-8 md:p-12"
+        >
+          {/* Financial Disclaimer */}
+          {activeSection === 'disclaimer' && (
+            <div className="prose prose-lg max-w-none">
+              <h2
+                className="text-[#162a2c] text-[32px] mb-6"
+                style={{
+                  fontFamily: "'Helvetica World', 'Helvetica', sans-serif",
+                  fontWeight: 700,
+                }}
+              >
+                ORDINO TECHNOLOGIES INC. — Financial Disclaimer & Acknowledgement
+              </h2>
+              <div className="space-y-4 text-[#686867]" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif" }}>
+                <p><strong>Effective Date:</strong></p>
+                <p><strong>Last Updated:</strong></p>
+                
+                <p className="leading-relaxed">
+                  Ordino Technologies Inc. ("Ordino") provides tools intended to help users organize receipts, monitor spending patterns, interpret transaction data, and develop personal financial awareness. Ordino is not a financial advisor, investment advisor, tax advisor, accounting professional, or legal advisor. Nothing within the Services constitutes professional advice, nor should any content be interpreted as such.
+                </p>
+                
+                <p className="leading-relaxed">
+                  All information, insights, categorizations, observations, and analytics generated by the Services are for general informational and educational purposes only. They may contain inaccuracies, omissions, or misinterpretations due to limitations in data, third-party integrations, or automated and AI-driven processes. Receipt extraction, transaction categorization, predictive analytics, and financial insights may produce incomplete or inaccurate results, and should not be used as the sole basis for making financial decisions.
+                </p>
+                
+                <p className="leading-relaxed">
+                  Ordino does not guarantee the accuracy, completeness, timeliness, or reliability of any information provided. Banking APIs, data connections, and integrations may experience disruptions or delays. Ordino is not responsible for any errors arising from third-party systems, including Plaid, financial institutions, or AI vendors.
+                </p>
+                
+                <p className="leading-relaxed">
+                  You agree that your personal financial decisions are your sole responsibility. Ordino assumes no responsibility for any financial loss, expense, or damage arising from the use of the Services or reliance on any generated insight or interpretation. Your use of the Services is entirely at your own risk.
+                </p>
+                
+                <p className="leading-relaxed">
+                  For questions regarding this Disclaimer, you may contact support@ordino.ca.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Privacy Policy */}
+          {activeSection === 'privacy' && (
+            <div className="prose prose-lg max-w-none">
+              <h2
+                className="text-[#162a2c] text-[32px] mb-6"
+                style={{
+                  fontFamily: "'Helvetica World', 'Helvetica', sans-serif",
+                  fontWeight: 700,
+                }}
+              >
+                ORDINO TECHNOLOGIES INC. — Privacy Policy
+              </h2>
+              <div className="space-y-6 text-[#686867]" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif" }}>
+                <p><strong>Effective Date:</strong></p>
+                <p><strong>Last Updated:</strong></p>
+                
+                <p className="leading-relaxed">
+                  This Privacy Policy describes how Ordino Technologies Inc. ("Ordino," "we," "our," or "us") collects, uses, discloses, and protects personal information when you access or use our website, mobile application, and related services ("Services"). By using the Services, you consent to the practices outlined in this Policy.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  1. Introduction
+                </h3>
+                <p className="leading-relaxed">
+                  Ordino is a Canadian financial-technology platform providing digital receipt storage, spending insights, and personal financial analytics. We are not a bank, lender, investment advisor, or financial institution. Our Services are informational only and do not provide regulated financial advice. This Policy explains what personal information we collect, how we use it, how we protect it, and the rights available to you.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  2. Defined Terms
+                </h3>
+                <p className="leading-relaxed">
+                  "Personal Information" means information about an identifiable individual, as defined under Canadian privacy law, including PIPEDA and relevant provincial legislation. "Financial Data" means transaction data, account balances, account information, and related metadata obtained when you connect financial accounts through third-party providers such as Plaid. "Services" means Ordino's mobile app, website, analytics tools, digital receipt services, and any related offerings. "You" refers to an individual user of the Services.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  3. What Personal Information We Collect
+                </h3>
+                <p className="leading-relaxed">
+                  We collect personal information directly from you, automatically when you use the Services, and through third-party integrations such as Plaid.
+                </p>
+                <p className="leading-relaxed">
+                  <strong>3.1 Information You Provide:</strong> Account registration information (name, email, phone number, password). Receipt uploads including images, files, and descriptions. Preferences, settings, categories, and custom tags. Communications with Ordino (support requests, emails, form submissions). Payment information if you subscribe to paid plans (processed by Stripe; Ordino does not store payment card details).
+                </p>
+                <p className="leading-relaxed">
+                  <strong>3.2 Information Collected Automatically:</strong> Device information (operating system, device model, unique identifiers). IP address, browser type, and interaction logs. Usage metrics, feature engagement, crash logs, and analytic events. Cookies and similar technologies used for functionality and security.
+                </p>
+                <p className="leading-relaxed">
+                  <strong>3.3 Financial Account Information (via Plaid):</strong> If you choose to connect a bank account, credit card, or financial product, Ordino receives read-only Financial Data from Plaid, including: Account balances. Account names and types. Transaction descriptions, amounts, merchant details, and timestamps. Routing information and masked account numbers. Ordino does not receive or store your banking credentials. Financial account data is encrypted and used only to provide Services.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  4. How We Use Personal Information
+                </h3>
+                <p className="leading-relaxed">
+                  We use your information to provide, maintain, secure, and improve the Services, including: Delivering account features, analytics, budgeting tools, and insights. Processing transaction data and generating automated summaries. Categorizing spending, updating dashboards, and optimizing user experience. Preventing fraud, misuse, or unauthorized access. Communicating service updates, support responses, and account notices. Managing subscriptions and billing. Complying with legal obligations and resolving disputes. Automated insights generated by Ordino use machine learning and may be inaccurate or incomplete. All insights are informational only and must not be relied upon for financial decisions.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  5. How We Share Personal Information
+                </h3>
+                <p className="leading-relaxed">
+                  Ordino does not sell personal information. We share it only as required to operate the Services.
+                </p>
+                <p className="leading-relaxed">
+                  <strong>5.1 Service Providers:</strong> We share data with third-party providers that support our operations, including: Plaid (financial data aggregation). Stripe (subscription billing). AWS (cloud hosting and storage). Verification, analytics, and security vendors. All providers are contractually required to maintain confidentiality and security standards.
+                </p>
+                <p className="leading-relaxed">
+                  <strong>5.2 Legal, Regulatory, and Compliance Purposes:</strong> We may disclose information if required by law, including: Responding to court orders, warrants, or lawful government requests. Investigating fraud, abuse, or security incidents. Enforcing our Terms of Service.
+                </p>
+                <p className="leading-relaxed">
+                  <strong>5.3 Corporate Transactions:</strong> In the event of a merger, acquisition, financing, reorganization, or sale of assets, your information may be transferred to the acquiring entity.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  6. How We Protect Personal Information
+                </h3>
+                <p className="leading-relaxed">
+                  Ordino uses technical, administrative, and organizational safeguards, including: Encryption in transit and at rest. Access controls and authentication. Regular monitoring for unauthorized access or anomalies. Segregation of sensitive data. No system is completely secure, but we implement protective measures consistent with industry standards.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  7. Retention of Personal Information
+                </h3>
+                <p className="leading-relaxed">
+                  We retain personal information only as long as reasonably necessary to: Provide the Services. Maintain account records. Comply with legal, tax, or regulatory requirements. Prevent and detect fraud. You may request deletion at any time, subject to legal and security considerations.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  8. International Data Transfers
+                </h3>
+                <p className="leading-relaxed">
+                  Data may be transferred to and stored in countries outside Canada, including the United States, where service providers such as AWS and Plaid operate. Transfers follow protections permitted under Canadian privacy law, contractual safeguards, and applicable international frameworks.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  9. Cookies and Tracking Technologies
+                </h3>
+                <p className="leading-relaxed">
+                  We use cookies and similar technologies to: Maintain session integrity. Enhance functionality. Improve performance and analytics. Detect fraud or abnormal activity. You may disable cookies through your browser, but certain features may not function properly.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  10. Your Rights
+                </h3>
+                <p className="leading-relaxed">
+                  Depending on your province of residence, you may have the following rights: Access to your personal information. Correction of inaccurate information. Withdrawal of consent for certain processing. Request deletion of your account. Request information about our disclosures to service providers. Portability of your data where applicable. To exercise your rights, contact legal@ordino.ca.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  11. Children's Privacy
+                </h3>
+                <p className="leading-relaxed">
+                  Ordino does not knowingly collect personal information from individuals under 18. If we learn that a minor has used the Services, we will delete the associated data.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  12. Links to Third-Party Services
+                </h3>
+                <p className="leading-relaxed">
+                  Our Services may contain links to third-party websites or tools. We are not responsible for the privacy practices of those entities.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  13. Changes to This Policy
+                </h3>
+                <p className="leading-relaxed">
+                  We may update this Privacy Policy from time to time. The "Last Updated" date indicates when changes were made. Continued use of the Services constitutes acceptance of updated terms.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  14. Contact Information
+                </h3>
+                <p className="leading-relaxed">
+                  For privacy inquiries, rights requests, or questions about this Policy, contact: legal@ordino.ca
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Terms of Service */}
+          {activeSection === 'terms' && (
+            <div className="prose prose-lg max-w-none">
+              <h2
+                className="text-[#162a2c] text-[32px] mb-6"
+                style={{
+                  fontFamily: "'Helvetica World', 'Helvetica', sans-serif",
+                  fontWeight: 700,
+                }}
+              >
+                ORDINO TECHNOLOGIES INC. — TERMS OF SERVICE
+              </h2>
+              <div className="space-y-6 text-[#686867]" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif" }}>
+                <p><strong>Effective Date:</strong></p>
+                <p><strong>Last Updated:</strong></p>
+                
+                <p className="leading-relaxed">
+                  These Terms of Service ("Terms") constitute a legally binding agreement between you and Ordino Technologies Inc. ("Ordino," "we," "our," or "us"). By accessing or using our website, mobile application, or related services (collectively, the "Services"), you acknowledge that you have read, understood, and agreed to be bound by these Terms. If you do not agree with these Terms, you must immediately stop using the Services. Ordino may modify or update these Terms at any time. Changes take effect upon posting, and your continued use of the Services following changes constitutes acceptance.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  1. Scope of the Services
+                </h3>
+                <p className="leading-relaxed">
+                  Ordino provides digital tools that allow users to store receipts, categorize spending, analyze financial patterns, and generate insights based on transaction data. Ordino does not provide financial, investment, legal, accounting, or tax advice. The Services are provided for informational and educational purposes only and are not intended to be used as the basis for financial decisions.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  2. Eligibility and User Representations
+                </h3>
+                <p className="leading-relaxed">
+                  The Services are intended solely for individuals who are at least eighteen years of age, reside in Canada, and have the legal capacity to enter into binding agreements. By using the Services, you represent that you meet these requirements. Ordino does not knowingly permit minors to use the Services.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  3. Account Registration and Security
+                </h3>
+                <p className="leading-relaxed">
+                  To access certain features, you must register for an account and provide accurate and complete information. You are responsible for maintaining the confidentiality of your login credentials and for all activity under your account. You agree to notify Ordino promptly at legal@ordino.ca of any unauthorized access or security breach. You consent to receive all notices, disclosures, agreements, and communications electronically, and you agree that electronic signatures and records satisfy any legal requirements for written communication. Withdrawing this consent may limit or prevent your continued use of the Services.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  4. Connection of Financial Accounts
+                </h3>
+                <p className="leading-relaxed">
+                  Ordino uses Plaid Inc. and other service providers to enable you to link financial accounts. When you choose to connect an account, you authorize Plaid to access your financial institution and transmit read-only information to Ordino, including account balances, transaction history, account types, and related metadata. Ordino does not receive or store your banking credentials, and neither Ordino nor Plaid can move funds or make changes to your accounts. Your use of Plaid is governed by Plaid's End User Privacy Policy, which you must review before connecting any account. You may disconnect financial accounts at any time, after which data will no longer refresh.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  5. Financial Data Handling
+                </h3>
+                <p className="leading-relaxed">
+                  Financial Data is encrypted in transit and at rest and is processed automatically by Ordino's systems. Ordino personnel do not access Financial Data except as required for fraud detection, security investigations, technical support, or compliance with law. Any such access is tightly controlled, logged, and limited to authorized personnel under strict confidentiality obligations.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  6. Subscriptions, Billing, Cancellations, and Refunds
+                </h3>
+                <p className="leading-relaxed">
+                  Certain features or service tiers require payment. By subscribing, you authorize Ordino and its payment processor, Stripe, to charge your selected payment method on a recurring basis. Subscriptions renew automatically unless cancelled before the renewal date. Cancellation takes effect at the end of the current billing cycle. All fees are non-refundable, including partial billing periods, except where prohibited by law. Ordino may suspend or terminate access to the Services if payment fails or the account becomes delinquent.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  7. Acceptable Use Requirements
+                </h3>
+                <p className="leading-relaxed">
+                  You agree to use the Services only for lawful and permitted purposes. You must not interfere with the operation of the Services, attempt to circumvent security systems, upload harmful or unlawful content, engage in fraudulent activity, impersonate other users, reverse-engineer the platform, extract or scrape data, or access any systems or data not intended for you. Ordino may suspend or terminate your access for any violation of these requirements.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  8. User Content and Receipt Uploads
+                </h3>
+                <p className="leading-relaxed">
+                  You may upload receipts, images, and other materials for storage and analysis. You represent that you have the lawful right to upload such materials and that they do not infringe any third-party rights. You grant Ordino a limited license to store, process, analyze, and use your uploaded content solely for the purpose of providing and improving the Services.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  9. Automated Processing and AI-Generated Insights
+                </h3>
+                <p className="leading-relaxed">
+                  Certain features rely on automated systems, including artificial intelligence, machine learning models, and optical character recognition. These systems may generate categorizations, insights, summaries, predictions, or other informational outputs. Automated outputs may be incomplete, inaccurate, or contain errors. All automated content is provided "as is" for informational purposes only. It must not be relied upon as financial, investment, legal, tax, accounting, or professional advice. You agree to independently verify the accuracy of any insights or classifications before relying on them. Your use of AI-generated results does not create any advisory, fiduciary, or professional relationship between you and Ordino.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  10. Privacy and Data Protection
+                </h3>
+                <p className="leading-relaxed">
+                  Your use of the Services is subject to the Ordino Privacy Policy, which forms an integral part of these Terms. The Privacy Policy describes our practices regarding the collection, use, disclosure, storage, and protection of personal information, and your rights in relation to such information. Continued use of the Services indicates your acceptance of the Privacy Policy. Ordino will notify affected users and, where required, regulatory authorities in the event of a data breach involving personal information, in accordance with applicable law.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  11. Intellectual Property Rights
+                </h3>
+                <p className="leading-relaxed">
+                  All content, software, designs, text, graphics, trademarks, algorithms, user interfaces, and other intellectual property associated with the Services are the exclusive property of Ordino or its licensors. You are granted a limited, non-exclusive, revocable right to use the Services for personal, non-commercial purposes in accordance with these Terms. No other rights are transferred to you.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  12. No Professional or Fiduciary Duty
+                </h3>
+                <p className="leading-relaxed">
+                  Ordino does not provide financial planning, investment management, legal advice, accounting services, tax guidance, or any regulated financial advice. Your use of the Services does not create any professional, fiduciary, advisory, or agency relationship between you and Ordino. You acknowledge and agree that you alone are responsible for your financial decisions and for verifying the accuracy of any information before acting on it.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  13. Termination
+                </h3>
+                <p className="leading-relaxed">
+                  Ordino may suspend or terminate your account or access to the Services at any time, with or without notice, if you violate these Terms, create security risks, engage in fraudulent or harmful conduct, or misuse the Services. You may terminate your account at any time by submitting a deletion request. Upon termination, your right to use the Services ceases immediately.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  14. Disclaimers
+                </h3>
+                <p className="leading-relaxed">
+                  The Services are provided on an "as is" and "as available" basis without warranties or representations of any kind, whether express, implied, statutory, or otherwise. Ordino disclaims all implied warranties including merchantability, fitness for a particular purpose, availability, accuracy, non-infringement, performance, and system compatibility. Ordino does not guarantee uninterrupted operation, error-free performance, accurate categorization, reliable insights, continuous integration with third-party systems, or the availability or accuracy of Financial Data. Nothing in the Services constitutes financial, investment, tax, accounting, legal, or other professional advice.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  15. Limitation of Liability
+                </h3>
+                <p className="leading-relaxed">
+                  To the fullest extent permitted by law, Ordino is not liable for any direct, indirect, incidental, special, economic, punitive, exemplary, or consequential damages arising out of or relating to the Services or these Terms, including any loss of data, inaccurate insights, reliance on automated outputs, system failures, unauthorized access, or disruptions arising from third-party service providers. Ordino's total cumulative liability to you for any claim shall not exceed the total amount you paid for access to the Services during the twelve-month period preceding the claim.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  16. Indemnification
+                </h3>
+                <p className="leading-relaxed">
+                  You agree to indemnify and hold harmless Ordino, its directors, officers, employees, contractors, agents, and affiliates from and against any claims, damages, liabilities, legal fees, and expenses arising from your use of the Services, your violation of these Terms, or your breach of any applicable law or third-party rights.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  17. Dispute Resolution and Governing Law
+                </h3>
+                <p className="leading-relaxed">
+                  These Terms and any disputes arising out of or relating to the Services are governed by the laws of Ontario and the federal laws of Canada applicable therein. You agree that disputes shall be resolved exclusively in the courts of Ontario unless arbitration is required or mutually agreed upon. You consent to the jurisdiction of courts located in Ontario, Canada.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  18. Severability
+                </h3>
+                <p className="leading-relaxed">
+                  If any provision of these Terms is found to be invalid, unlawful, or unenforceable, the remaining provisions remain in full force and effect.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  19. Survival
+                </h3>
+                <p className="leading-relaxed">
+                  The following sections survive termination: Intellectual Property Rights, Automated Processing and AI-Generated Insights, Disclaimers, Limitation of Liability, Indemnification, Dispute Resolution, and Survival.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  20. Entire Agreement
+                </h3>
+                <p className="leading-relaxed">
+                  These Terms constitute the entire agreement between you and Ordino regarding the Services and supersede any prior agreements or understandings.
+                </p>
+
+                <h3 className="text-[#162a2c] text-[24px] mt-8 mb-4" style={{ fontFamily: "'Helvetica World', 'Helvetica', sans-serif", fontWeight: 600 }}>
+                  21. Contact Information
+                </h3>
+                <p className="leading-relaxed">
+                  All notices or communications to Ordino may be sent to legal@ordino.ca.
+                </p>
+              </div>
+            </div>
+          )}
+        </motion.div>
+      </div>
+      {onNavigate && <MarketingFooter onNavigate={onNavigate} />}
+    </div>
+  );
+}
